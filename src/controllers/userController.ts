@@ -38,3 +38,15 @@ export const getSingleUser = async (req: Request, res: Response) => {
     return res.status(401).json({ error });
   }
 };
+
+export const deleteSingleUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    con.query(UserData.deleteById(Number(id)), (err, result) => {
+      if (err) throw err;
+      return res.status(201).json({ message: "Successfully Deleted" });
+    });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+};

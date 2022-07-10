@@ -13,6 +13,9 @@ class User {
   create({ name, age }: IFields) {
     return `INSERT INTO users (name,age) VALUES ('${name}','${age}')`;
   }
+  deleteById(id: number) {
+    return `DELETE FROM users where id = ${id}`;
+  }
 }
 
 export default User;
