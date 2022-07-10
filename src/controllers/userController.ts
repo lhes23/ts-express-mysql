@@ -50,3 +50,16 @@ export const deleteSingleUser = async (req: Request, res: Response) => {
     return res.status(401).json({ error });
   }
 };
+
+export const updateSingleUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { name, age }: IFields = req.body;
+  try {
+    con.query(UserData.updateByID(Number(id), { name, age }), (err, result) => {
+      if (err) throw err;
+      return res.status(201).json({ message: "Succesfully Updated!", result });
+    });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+};

@@ -3,18 +3,23 @@ export interface IFields {
   age: number;
 }
 
+const tableName: string = "users";
+
 class User {
   find() {
-    return "SELECT * From Users";
+    return `SELECT * From ${tableName}`;
   }
   findById(id: number) {
-    return `SELECT * FROM Users where id = ${id}`;
+    return `SELECT * FROM ${tableName} where id = ${id}`;
   }
   create({ name, age }: IFields) {
-    return `INSERT INTO users (name,age) VALUES ('${name}','${age}')`;
+    return `INSERT INTO ${tableName} (name,age) VALUES ('${name}','${age}')`;
   }
   deleteById(id: number) {
-    return `DELETE FROM users where id = ${id}`;
+    return `DELETE FROM ${tableName} where id = ${id}`;
+  }
+  updateByID(id: number, { name, age }: IFields) {
+    return `UPDATE ${tableName} SET name ='${name}',age='${age}' WHERE id = ${id}`;
   }
 }
 
