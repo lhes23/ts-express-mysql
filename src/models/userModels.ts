@@ -9,8 +9,13 @@ class User {
   find() {
     return `SELECT * From ${tableName}`;
   }
-  findById(id: number) {
-    return `SELECT * FROM ${tableName} where id = ${id}`;
+  // findById(id: number) {
+  //   return `SELECT * FROM ${tableName} where id = ${id}`;
+  // }
+  findById(whereClaus: {}) {
+    return `SELECT * FROM ${tableName} where ${Object.keys(whereClaus)[0]} = ${
+      Object.values(whereClaus)[0]
+    }`;
   }
   create({ name, age }: IFields) {
     return `INSERT INTO ${tableName} (name,age) VALUES ('${name}','${age}')`;

@@ -29,10 +29,12 @@ export const addUser = async (req: Request, res: Response) => {
 
 export const getSingleUser = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const paramId: number = Number(id);
   try {
-    con.query(UserData.findById(Number(id)), (err, result) => {
+    const query = UserData.findById({ id: paramId });
+    con.query(query, (err, result) => {
       if (err) throw err;
-      return res.status(201).json({ result });
+      return res.status(201).json({ result, query });
     });
   } catch (error) {
     return res.status(401).json({ error });
