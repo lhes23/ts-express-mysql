@@ -26,7 +26,7 @@ class User {
     }`;
   }
   updateByID(whereClaus: {}, { name, age }: IFields) {
-    return `UPDATE ${tableName} SET name ='${name}',age='${age}' WHERE ${
+    return `UPDATE ${tableName} SET name = '${name}', age = '${age}' WHERE ${
       Object.keys(whereClaus)[0]
     } = ${Object.values(whereClaus)[0]}`;
   }

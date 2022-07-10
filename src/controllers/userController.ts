@@ -39,25 +39,18 @@ export const getSingleUser = async (req: Request, res: Response) => {
 
 export const deleteSingleUser = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    createQueryHandler(UserData.deleteById(Number(id)), res);
-    // con.query(UserData.deleteById(Number(id)), (err, result) => {
-    //   if (err) throw err;
-    //   return res.status(201).json({ message: "Successfully Deleted" });
-    // });
+    const id = Number(req.params.id);
+    createQueryHandler(UserData.deleteById({ id }), res);
   } catch (error) {
     return res.status(401).json({ error });
   }
 };
 
 export const updateSingleUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { name, age }: IFields = req.body;
   try {
-    con.query(UserData.updateByID(Number(id), { name, age }), (err, result) => {
-      if (err) throw err;
-      return res.status(201).json({ message: "Succesfully Updated!", result });
-    });
+    const id = Number(req.params.id);
+    const { name, age }: IFields = req.body;
+    createQueryHandler(UserData.updateByID({ id }, { name, age }), res);
   } catch (error) {
     return res.status(401).json({ error });
   }
