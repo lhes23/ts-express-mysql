@@ -4,12 +4,16 @@ import User from "../models/userModels";
 const UserData = new User();
 import { IFields } from "../models/userModels";
 
+const createQueryHandler = (query: string, res: Response) => {
+  con.query(query, (err, result) => {
+    if (err) throw err;
+    return res.status(201).json({ status: 201, message: "Success", result });
+  });
+};
+
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    con.query(UserData.find(), (err, result) => {
-      if (err) throw err;
-      return res.status(201).json({ result });
-    });
+    createQueryHandler(UserData.find(), res);
   } catch (error) {
     return res.status(401).json({ error });
   }
@@ -18,36 +22,29 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const addUser = async (req: Request, res: Response) => {
   try {
     const { name, age }: IFields = req.body;
-    con.query(UserData.create({ name, age }), (err, result) => {
-      if (err) throw err;
-      return res.status(201).json({ message: "Success", result });
-    });
+    createQueryHandler(UserData.create({ name, age }), res);
   } catch (error) {
     return res.status(401).json({ error });
   }
 };
 
 export const getSingleUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const paramId: number = Number(id);
   try {
-    const query = UserData.findById({ id: paramId });
-    con.query(query, (err, result) => {
-      if (err) throw err;
-      return res.status(201).json({ result, query });
-    });
+    const { id } = req.params;
+    createQueryHandler(UserData.findById({ id: Number(id) }), res);
   } catch (error) {
     return res.status(401).json({ error });
   }
 };
 
 export const deleteSingleUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
   try {
-    con.query(UserData.deleteById(Number(id)), (err, result) => {
-      if (err) throw err;
-      return res.status(201).json({ message: "Successfully Deleted" });
-    });
+    const { id } = req.params;
+    createQueryHandler(UserData.deleteById(Number(id)), res);
+    // con.query(UserData.deleteById(Number(id)), (err, result) => {
+    //   if (err) throw err;
+    //   return res.status(201).json({ message: "Successfully Deleted" });
+    // });
   } catch (error) {
     return res.status(401).json({ error });
   }

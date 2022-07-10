@@ -20,11 +20,15 @@ class User {
   create({ name, age }: IFields) {
     return `INSERT INTO ${tableName} (name,age) VALUES ('${name}','${age}')`;
   }
-  deleteById(id: number) {
-    return `DELETE FROM ${tableName} where id = ${id}`;
+  deleteById(whereClaus: {}) {
+    return `DELETE FROM ${tableName} where ${Object.keys(whereClaus)[0]} = ${
+      Object.values(whereClaus)[0]
+    }`;
   }
-  updateByID(id: number, { name, age }: IFields) {
-    return `UPDATE ${tableName} SET name ='${name}',age='${age}' WHERE id = ${id}`;
+  updateByID(whereClaus: {}, { name, age }: IFields) {
+    return `UPDATE ${tableName} SET name ='${name}',age='${age}' WHERE ${
+      Object.keys(whereClaus)[0]
+    } = ${Object.values(whereClaus)[0]}`;
   }
 }
 
