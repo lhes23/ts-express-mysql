@@ -1,10 +1,4 @@
-import express, {
-  Application,
-  NextFunction,
-  Request,
-  Response,
-  Router,
-} from "express";
+import express, { Application } from "express";
 import { config } from "dotenv";
 import indexRoute from "./routes";
 import userRoutes from "./routes/userRoutes";
